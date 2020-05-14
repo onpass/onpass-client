@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="col-sm-4 offset-sm-4">
         <h2>Login</h2>
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
