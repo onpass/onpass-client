@@ -73,7 +73,7 @@ ul {
 
 <template>
     <div id="my-card-grid">
-        Columns: <input v-model.number="numberOfColumns">
+        <strong>Columns:</strong> <input v-model.number="numberOfColumns" class="input" size="3">
         <ul :style="gridStyle" class="card-list">
             <li v-for="item in cards" :key=item.name class="card-item">
                 <vue-flip active-click transition="0.5s" width=150px height=200px>
@@ -94,8 +94,9 @@ ul {
                     <template v-slot:back class="back">
                         <div class="card">
                             <div class="card-content">
+                                <p>Login:</p>
                                 <p class="subtitle is-4">{{item.login}}</p>
-                                <br>
+                                <p>Password:</p>
                                 <p class="subtitle is-6">{{item.pwd}}</p>
                             </div>
                         </div>

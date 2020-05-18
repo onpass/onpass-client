@@ -1,8 +1,10 @@
 <template>
         <div class="col-xm-12">
             <navbar></navbar>
+            <br>
             <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
             <router-view></router-view>
+            
         </div>
 </template>
 

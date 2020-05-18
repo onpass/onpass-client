@@ -8,19 +8,25 @@
             </div>
             <div class="navbar-end">
                 <div v-if="loggedIn==true" class="navbar-item">
+                    <div class="container">
                     <p class="is-size-5">
                         {{"Hi " + username}}
                     </p>
-                    <router-link to="/home" class="button is-primary">
+                    <router-link to="/home" class="button">
                         <strong>Home</strong>
                     </router-link>
+                    <router-link to="/login" class="button">
+                        <strong>Logout</strong>
+                    </router-link>
+                </div>
                 </div>
                 <div v-if="loggedIn!=true">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-primart">
+                    <router-link to="/login" class="button">
                         <strong>Log in</strong>
+                    </router-link>
+                    <router-link to="/register" class="button">
+                        <strong>Sign in</strong>
+                    </router-link>
                     </a>
                 </div>
             </div>
