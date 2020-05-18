@@ -73,7 +73,7 @@ ul {
 
 <template>
     <div id="my-card-grid">
-        <strong>Columns:</strong> <input v-model.number="numberOfColumns" class="input" size="3">
+        <p class="is-size-4">Columns:</p> <input v-model.number="numberOfColumns" class="input" size="3">
         <ul :style="gridStyle" class="card-list">
             <li v-for="item in cards" :key=item.name class="card-item">
                 <vue-flip active-click transition="0.5s" width=150px height=200px>
@@ -102,7 +102,6 @@ ul {
                         </div>
                     </template>
                 </vue-flip>
-                
             </li>
         </ul>
         <button class="button" @click="addCard">

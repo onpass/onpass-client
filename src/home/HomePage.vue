@@ -1,5 +1,8 @@
 <template>
     <div class="align-center justify-center">
+        <p class="is-size-4">
+            {{"Hi, " + username}}
+        </p>
         <CardGrid
         :cards=layout>
         </CardGrid>
@@ -17,7 +20,8 @@ export default {
     computed: {
         ...mapState({
             account: state => state.account,
-            users: state => state.users.all
+            users: state => state.users.all,
+            username: state => state.account.user.username
         })
     },
     created () {
