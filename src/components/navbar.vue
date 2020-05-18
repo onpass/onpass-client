@@ -3,6 +3,7 @@
         <nav class="navbar">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
+                    <img v-bind:src="'../src/assets/onpass.png'">
                     OnPass
                 </a>
             </div>
