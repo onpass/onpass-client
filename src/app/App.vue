@@ -1,18 +1,14 @@
 <template>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
-                    <router-view></router-view>
-                </div>
-            </div>
+        <div class="col-xm-12">
+            <navbar></navbar>
+            <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
+            <router-view></router-view>
         </div>
-    </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex';
+import Navigation from "../components/navbar";
 
 export default {
     name: 'app',
@@ -31,6 +27,9 @@ export default {
             // clear alert on location change
             this.clearAlert();
         }
-    } 
+    },
+    components: {
+        "navbar" : Navigation
+    }
 };
 </script>

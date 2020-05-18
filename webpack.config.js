@@ -16,7 +16,19 @@ module.exports = {
                 test: /\.js?$/,
                 exclude: /(node_modules)/,
                 use: 'babel-loader'
-            }
+            },
+            {
+                test: /\.styl$/,
+                loader: ['css-loader', 'stylus-loader']
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+                loader: 'file-loader'
+            },
         ]
     },
     plugins: [new HtmlWebpackPlugin({
