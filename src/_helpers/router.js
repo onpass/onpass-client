@@ -6,6 +6,8 @@ import LoginPage from '../login/LoginPage'
 import RegisterPage from '../register/RegisterPage'
 import NewsPage from '../news/NewsPage'
 
+const config = require("../config.json")
+
 Vue.use(Router);
 
 export const router = new Router({
@@ -21,11 +23,22 @@ export const router = new Router({
   ]
 });
 
+function getLoggedInStatus () {
+  const requestOptions = {
+    headers: {'Access-Control-Allow-Credentials': 'true'},
+    method: 'POST',
+    credentials: 'include'
+  };
+  return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
+}
+
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register', '/'];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
+  //const loggedIn = Vue.$cookies.isKey('nevergonnagiveyouup');
+  //const loggedIn = !!state.status.loggedIn;
+  const loggedIn = getLoggedInStatus()
 
   if (authRequired && !loggedIn) {
     return next('/login');

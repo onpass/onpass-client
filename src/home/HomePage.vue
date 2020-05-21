@@ -1,8 +1,10 @@
 <template>
     <div class="align-center justify-center">
+        <!--
         <p class="is-size-4">
             {{"Hi, " + username}}
         </p>
+        -->
         <CardGrid
         :cards=layout>
         </CardGrid>
@@ -17,6 +19,7 @@ export default {
     components: {
         'CardGrid': CardGrid
     },
+    /*
     computed: {
         ...mapState({
             account: state => state.account,
@@ -24,9 +27,7 @@ export default {
             username: state => state.account.user.username
         })
     },
-    created () {
-        this.getAllUsers();
-    },
+    */
     data: function() {  
         return {
             layout: [
@@ -39,14 +40,6 @@ export default {
         ],
         };
     },
-    methods: {
-        ...mapActions('users', {
-            getAllUsers: 'getAll',
-            deleteUser: 'delete'
-        })
-    }
 };
 
 </script>
-
-

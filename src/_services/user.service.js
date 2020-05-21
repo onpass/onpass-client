@@ -1,51 +1,66 @@
-import config from 'config';
-import { authHeader } from '../_helpers';
+//import config from 'config';
+//import { authHeader } from '../_helpers';
+const config = require("../config.json")
 
 export const userService = {
     login,
     logout,
     register,
+    /*
     getAll,
     getById,
     update,
     delete: _delete
+    */
 };
 
 function login(username, password) {
+    console.log(JSON.stringify({ username, password }))
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true'},
+        body: JSON.stringify({ username, password }),
+        credentials: 'include'
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/auth/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
             if (user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                //localStorage.setItem('user', JSON.stringify(user));
+                //Vue.$cookies.set('nevergonnagiveyouup', "fake-jwt-token",'1h');
             }
-
             return user;
         });
 }
 
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true'},
+        credentials: 'include'
+    };
+    return fetch(`${config.apiUrl}/auth/logout`, requestOptions)
+    //Vue.$cookies.remove("nevergonnagiveyouup")
+    //localStorage.removeItem('user');
 }
 
 function register(user) {
+    console.log(JSON.stringify(user))
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' },
+        body: JSON.stringify(user),
+        credentials: 'include'
     };
 
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse);
 }
 
+/*
 function getAll() {
     const requestOptions = {
         method: 'GET',
@@ -55,7 +70,6 @@ function getAll() {
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
-
 function getById(id) {
     const requestOptions = {
         method: 'GET',
@@ -64,6 +78,7 @@ function getById(id) {
 
     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
+
 
 function update(user) {
     const requestOptions = {
@@ -84,6 +99,7 @@ function _delete(id) {
 
     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
+*/
 
 function handleResponse(response) {
     return response.text().then(text => {

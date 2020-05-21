@@ -1,10 +1,21 @@
 import { userService } from '../_services';
 import { router } from '../_helpers';
+const config = require("../config.json")
 
-const user = JSON.parse(localStorage.getItem('user'));
-const state = user
-    ? { status: { loggedIn: true }, user }
-    : { status: {}, user: null };
+function getLoggedInStatus () {
+    const requestOptions = {
+        headers: {'Access-Control-Allow-Credentials': 'true'},
+        method: 'POST',
+        credentials: 'include'
+    };
+    return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
+}
+
+//const token = Vue.$cookies.get('nevergonnagiveyouup');
+const token = getLoggedInStatus ()
+const state = token
+    ? { status: { loggedIn: true }}
+    : { status: {}};
 
 const actions = {
     login({ dispatch, commit }, { username, password }) {

@@ -3,8 +3,8 @@
         <h2>Register</h2>
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <label for="firstName">Email</label>
-                <input type="text" v-model="user.firstName" v-validate="'required'" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.has('email') }" />
+                <label for="email">Email</label>
+                <input type="text" v-model="user.email" v-validate="'required'" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.has('email') }" />
                 <div v-if="submitted && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@ export default {
             this.submitted = true;
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    this.register(this.user);
+                    console.log(this.register(this.user));
                 }
             });
         }
