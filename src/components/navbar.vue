@@ -7,6 +7,31 @@
                     <p class="modal-card-title">Generate random password</p>
                 </header>
                 <section class="modal-card-body">
+                    <form @submit.prevent="handleSubmit">
+                        <div class="form-group">
+                            <label for="length">length</label>
+                            <input type="text" v-model="length" name="length" class="form-control" :class="{ 'is-invalid': length<8 || length>127 }" />
+                            <div v-show="submitted && (length<8 || length>127)" class="invalid-feedback">len must be in range [8, 127]</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="letters">letters</label>
+                            <input type="checkbox" id="checkbox" v-model="letters">
+                        </div>
+                        <div class="form-group">
+                            <label for="numbers">numbers</label>
+                            <input type="checkbox" id="checkbox" v-model="numbers">
+                        </div>
+                        <div class="form-group">
+                            <label for="symbols">symbols</label>
+                            <input type="checkbox" id="checkbox" v-model="symbols">
+                        </div>
+                        <div class="form-group">
+                            <button class="button" v-on:click="GetRandPwd">Generate</button>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" v-model="randPWD" id="selectCategory" :readonly="true">
+                        </div>
+                    </form>
                 <!-- Content ... -->
                 </section>
                 <footer class="modal-card-foot">
@@ -56,8 +81,6 @@
 </template>
 
 <script>
-import Vue from 'vue/dist/vue.esm.js'
-import App from '../app/App'
 import { mapState } from 'vuex';
 const config = require("../config.json")
 export default {
@@ -68,14 +91,14 @@ export default {
             length: 8,
             letters: true,
             numbers: true,
-            symbols: true,
-            randPWD: ''
+            symbols: false,
+            randPWD: '',
+            submitted: false
         }
     },
     computed: {
         ...mapState({
             loggedIn: state => state.account.status.loggedIn,
-            state1 : state => state
         })
     },
     methods: {
@@ -83,14 +106,15 @@ export default {
             this.showModalFlag = !this.showModalFlag;
         },
         GetRandPwd() {
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'no-cors',
-                body: JSON.stringify({ length, letters, numbers, symbols })
-            };
-            return fetch(`${config.apiUrl}/entry/new_password`, requestOptions)
-
+            this.submitted = true;
+            let { length, letters, numbers, symbols } = this;
+            //console.log(JSON.stringify({ length, letters, numbers, symbols }));
+            
+            fetch(`${config.apiUrl}/entry/new_password`, {
+                method: "POST",
+                body: JSON.stringify({ length, letters, numbers, symbols }),
+                headers: {'Content-Type':'application/json'}
+            }).then(c => c.json().then(v => this.randPWD = v)).catch(e => console.log(e.toString()))
         },
     }
 }

@@ -1,6 +1,8 @@
 //import config from 'config';
 //import { authHeader } from '../_helpers';
 const config = require("../config.json")
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 export const userService = {
     login,
@@ -15,49 +17,15 @@ export const userService = {
 };
 
 function login(username, password) {
-    console.log(JSON.stringify({ username, password }))
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true'},
-        body: JSON.stringify({ username, password }),
-        credentials: 'include'
-    };
-
-    return fetch(`${config.apiUrl}/auth/login`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // login successful if there's a jwt token in the response
-            if (user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                //localStorage.setItem('user', JSON.stringify(user));
-                //Vue.$cookies.set('nevergonnagiveyouup', "fake-jwt-token",'1h');
-            }
-            return user;
-        });
+        return axios.post(`${config.apiUrl}/auth/login`, { username, password })
 }
 
 function logout() {
-    // remove user from local storage to log user out
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true'},
-        credentials: 'include'
-    };
-    return fetch(`${config.apiUrl}/auth/logout`, requestOptions)
-    //Vue.$cookies.remove("nevergonnagiveyouup")
-    //localStorage.removeItem('user');
+    return axios.post(`${config.apiUrl}/auth/logout`, null)
 }
 
 function register(user) {
-    console.log(JSON.stringify(user))
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Credentials': 'true' },
-        body: JSON.stringify(user),
-        credentials: 'include'
-    };
-
-    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse);
+    return axios.post(`${config.apiUrl}/user`, user)
 }
 
 /*

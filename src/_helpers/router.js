@@ -5,6 +5,8 @@ import HomePage from '../home/HomePage'
 import LoginPage from '../login/LoginPage'
 import RegisterPage from '../register/RegisterPage'
 import NewsPage from '../news/NewsPage'
+import axios from "axios"
+axios.defaults.withCredentials = true;
 
 const config = require("../config.json")
 
@@ -24,12 +26,20 @@ export const router = new Router({
 });
 
 function getLoggedInStatus () {
+  /*
   const requestOptions = {
-    headers: {'Access-Control-Allow-Credentials': 'true'},
+    headers: {'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Methods": 'POST', "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept' },
     method: 'POST',
-    credentials: 'include'
+    credentials: 'same-origin'
   };
   return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
+  */
+  return axios.post(`${config.apiUrl}/auth/check`,null, {
+    headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+}
+});
 }
 
 router.beforeEach((to, from, next) => {

@@ -1,14 +1,26 @@
 import { userService } from '../_services';
 import { router } from '../_helpers';
 const config = require("../config.json")
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 function getLoggedInStatus () {
+    /*
     const requestOptions = {
-        headers: {'Access-Control-Allow-Credentials': 'true'},
+        headers: {'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Methods": 'POST', "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept' },
         method: 'POST',
-        credentials: 'include'
+        credentials: 'same-origin'
     };
     return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
+    */
+    const x = axios.post(`${config.apiUrl}/auth/check`, null, { 
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });
+    console.log(x)
+    return x
 }
 
 //const token = Vue.$cookies.get('nevergonnagiveyouup');
