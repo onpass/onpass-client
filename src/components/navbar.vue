@@ -11,19 +11,19 @@
                         <div class="form-group">
                             <label for="length">length</label>
                             <input type="text" v-model="length" name="length" class="form-control" :class="{ 'is-invalid': length<8 || length>127 }" />
-                            <div v-show="submitted && (length<8 || length>127)" class="invalid-feedback">len must be in range [8, 127]</div>
+                            <div v-show="submitted && (length<8 || length>127)" class="invalid-feedback">length must be in range [8, 127]</div>
                         </div>
                         <div class="form-group">
                             <label for="letters">letters</label>
-                            <input type="checkbox" id="checkbox" v-model="letters">
+                            <input type="checkbox" id="checkbox-letters" v-model="letters">
                         </div>
                         <div class="form-group">
                             <label for="numbers">numbers</label>
-                            <input type="checkbox" id="checkbox" v-model="numbers">
+                            <input type="checkbox" id="checkbox-numbers" v-model="numbers">
                         </div>
                         <div class="form-group">
                             <label for="symbols">symbols</label>
-                            <input type="checkbox" id="checkbox" v-model="symbols">
+                            <input type="checkbox" id="checkbox-symbols" v-model="symbols">
                         </div>
                         <div class="form-group">
                             <button class="button" v-on:click="GetRandPwd">Generate</button>
@@ -32,7 +32,6 @@
                             <input class="input" v-model="randPWD" id="selectCategory" :readonly="true">
                         </div>
                     </form>
-                <!-- Content ... -->
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button" v-on:click="showModal">Close</button>

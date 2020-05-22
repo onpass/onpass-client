@@ -12,34 +12,32 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 import CardGrid from '../components/card_grid'
-
+import axios from "axios"
+const config = require("../config.json")
 export default {
-    components: {
-        'CardGrid': CardGrid
-    },
-    /*
-    computed: {
-        ...mapState({
-            account: state => state.account,
-            users: state => state.users.all,
-            username: state => state.account.user.username
-        })
-    },
-    */
-    data: function() {  
+    data: () => {
         return {
             layout: [
-            {name:"facebook.com", login:"Tarikan", pwd:"12321"},
-            {name:"gmail.com", login:"Tar1kan", pwd:"32131"},
-            {name:"vk.com", login:"Tarikan", pwd:"12321"},
-            {name:"youtube.com", login:"Tarikan", pwd:"12321"},
-            {name:"wikipedia.org", login:"Tarikan", pwd:"12321"},
-            {name:"gog.com", login:"Tarikan", pwd:"12321"},
+            {website:"facebook.com", login:"Tarikan", password:"12321"},
+            {website:"gmail.com", login:"Tar1kan", password:"32131"},
+            {website:"vk.com", login:"Tarikan", password:"12321"},
+            {website:"youtube.com", login:"Tarikan", password:"12321"},
+            {website:"wikipedia.org", login:"Tarikan", password:"12321"},
+            {website:"gog.com", login:"Tarikan", password:"12321"},
         ],
         };
     },
+    components: {
+        'CardGrid': CardGrid
+    },
+    computed: {
+        cards_list: () => {
+            let res = []
+            axios.get(`${config.apiUrl}/entry/`).then(c => c.json().then(v => res = v)).catch(e => console.log(e.toString()))
+            console.log(res)
+            return res
+        }
+    },
 };
-
 </script>
