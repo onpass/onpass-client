@@ -6,7 +6,7 @@
         </p>
         -->
         <CardGrid
-        :cards=layout>
+        :cards=cards_list>
         </CardGrid>
     </div>
 </template>
@@ -25,19 +25,16 @@ export default {
             {website:"youtube.com", login:"Tarikan", password:"12321"},
             {website:"wikipedia.org", login:"Tarikan", password:"12321"},
             {website:"gog.com", login:"Tarikan", password:"12321"},
-        ],
+            ],
+            cards_list: []
         };
     },
     components: {
         'CardGrid': CardGrid
     },
-    computed: {
-        cards_list: () => {
-            let res = []
-            axios.get(`${config.apiUrl}/entry/`).then(c => c.json().then(v => res = v)).catch(e => console.log(e.toString()))
-            console.log(res)
-            return res
-        }
+    created() {
+        axios.get(`${config.apiUrl}/entry/`).then(response => this.cards_list = response.data.entries ).catch(e => console.log(e.toString()))
     },
+
 };
 </script>

@@ -14,17 +14,15 @@ function getLoggedInStatus () {
     };
     return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
     */
-    const x = axios.post(`${config.apiUrl}/auth/check`, null, { 
+    return axios.post(`${config.apiUrl}/auth/check`, null, { 
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     });
-    console.log(x)
-    return x
 }
 
 //const token = Vue.$cookies.get('nevergonnagiveyouup');
-const token = getLoggedInStatus ()
+const token = getLoggedInStatus().then(c => {return c == 204})
 const state = token
     ? { status: { loggedIn: true }}
     : { status: {}};

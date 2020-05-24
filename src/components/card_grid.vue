@@ -28,11 +28,26 @@ export default {
         },
         addCard() {
             let {website, login, password} = this
+            
             axios.post(`${config.apiUrl}/entry`,
-                JSON.stringify({website, login, password}),
+                {website, login, password},
                 {headers: {'Content-Type':'application/json'}})
             this.cards.push({website, login, password})
         },
+        handleSubmit(e) {
+            
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    let {website, login, password} = this
+                    axios.post(`${config.apiUrl}/entry`,
+                        {website, login, password},
+                        {headers: {'Content-Type':'application/json'}}).then(c => console.log(c)).catch(e => console.log(e.toString()))
+                    
+                    this.cards.push({website, login, password})
+                }
+            });
+        }
     },
     components:{
         'vue-flip': VueFlip
@@ -94,7 +109,7 @@ ul {
                     <p class="modal-card-title">Add new password</p>
                 </header>
                 <section class="modal-card-body">
-                    <form>
+                    <form @submit.prevent="handleSubmit">
                         <div class="form-group">
                             <label for="website">website</label>
                             <input type="text" v-model="website" name="website" class="form-control" :class="{ 'is-invalid': website === '' }" />
@@ -108,12 +123,12 @@ ul {
                             <input type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': password === '' }" />
                         </div>
                         <div class="form-group">
-                            <button class="button" v-on:click="addCard">Add</button>
+                            <button class="button" type="submit">Add</button>
                         </div>
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button" v-on:click="showModal">Close</button>
+                    <button type="submit" class="button" v-on:click="showModal">Close</button>
                 </footer>
             </div>
         </div>
@@ -131,10 +146,7 @@ ul {
                                 </div>
                             </div>
                             <div class="card-header">
-                                <p class="title is-6">{{item.website}}</p>
-                            </div>
-                            <div class="card-foot">
-                                <p class="subtitle is-4">{{item.login}}</p>
+                                <p class="title is-6">{{item.website}}<br>{{item.login}}</p>
                             </div>
                         </div>
                     </template>
