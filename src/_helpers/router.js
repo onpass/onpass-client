@@ -48,7 +48,12 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   //const loggedIn = Vue.$cookies.isKey('nevergonnagiveyouup');
   //const loggedIn = !!state.status.loggedIn;
-  const loggedIn = getLoggedInStatus().then(c => {return c == 204})
+  //const loggedIn = getLoggedInStatus().then(c => console.log(c.status == 204))
+  //let loggedIn = getLoggedInStatus().then(response => console.log(response.status))
+  //console.log(loggedIn)
+  let loggedIn;
+  getLoggedInStatus().then((response) => {if(response.status === 204) {loggedIn = true}})
+  console.log("router check " + loggedIn)
 
   if (authRequired && !loggedIn) {
     return next('/login');

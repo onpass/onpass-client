@@ -1,5 +1,6 @@
 //import config from 'config';
 //import { authHeader } from '../_helpers';
+import {state} from '../_store/account.module'
 const config = require("../config.json")
 import axios from 'axios'
 axios.defaults.withCredentials = true;

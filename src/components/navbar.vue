@@ -103,6 +103,8 @@ export default {
     methods: {
         showModal() {
             this.showModalFlag = !this.showModalFlag;
+            this.length = 8,
+            this.randPWD = ''
         },
         GetRandPwd() {
             this.submitted = true;
