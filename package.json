@@ -9,10 +9,13 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest",
+    "doc": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-register": "^6.26.0",
+    "jsdoc-vue": "^1.0.0",
     "style-loader": "^1.2.1",
     "vee-validate": "^2.2.8",
     "vue": "^2.6.10",
@@ -31,19 +34,21 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-vue": "^2.0.2",
+    "better-docs": "^2.0.1",
     "css-loader": "^3.5.3",
     "deepmerge": "^4.2.2",
     "fibers": "^5.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^26.0.1",
     "jest-serializer-vue": "^2.0.2",
+    "jsdoc": "^3.6.4",
     "path": "^0.12.7",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "stylus-loader": "^3.0.2",
     "vue-jest": "^3.0.5",
     "vue-loader": "^14.2.3",
-    "vue-template-compiler": "^2.6.10",
+    "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
@@ -71,7 +76,7 @@
     },
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
-	  "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     }
   }
 }

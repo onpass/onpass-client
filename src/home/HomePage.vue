@@ -5,6 +5,7 @@
             {{"Hi, " + username}}
         </p>
         -->
+        
         <CardGrid
         :cards=cards_list>
         </CardGrid>

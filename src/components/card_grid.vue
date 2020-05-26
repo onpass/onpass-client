@@ -25,14 +25,9 @@ export default {
     methods: {
         showModal() {
             this.showModalFlag = !this.showModalFlag;
-        },
-        addCard() {
-            let {website, login, password} = this
-            
-            axios.post(`${config.apiUrl}/entry`,
-                {website, login, password},
-                {headers: {'Content-Type':'application/json'}})
-            this.cards.push({website, login, password})
+            this.website = ''
+            this.login = ''
+            this.password = ''
         },
         handleSubmit(e) {
             
@@ -43,7 +38,6 @@ export default {
                     axios.post(`${config.apiUrl}/entry`,
                         {website, login, password},
                         {headers: {'Content-Type':'application/json'}}).then(c => console.log(c)).catch(e => console.log(e.toString()))
-                    
                     this.cards.push({website, login, password})
                 }
             });

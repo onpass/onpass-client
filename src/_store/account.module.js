@@ -4,30 +4,14 @@ const config = require("../config.json")
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
-function getLoggedInStatus () {
-    /*
-    const requestOptions = {
-        headers: {'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Origin': '*',
-        "Access-Control-Allow-Methods": 'POST', "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept' },
-        method: 'POST',
-        credentials: 'same-origin'
-    };
-    return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
-    */
-    return axios.post(`${config.apiUrl}/auth/check`, null, { 
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    });
-}
-
-//const token = Vue.$cookies.get('nevergonnagiveyouup');
-const token = getLoggedInStatus().then(c => {return c == 204})
-const state = token
-    ? { status: { loggedIn: true }}
-    : { status: {}};
+//const token = getLoggedInStatus()
+//console.log("token ", token)
+const state = { status: {loggedIn: false}};
 
 const actions = {
+    changeLog({commit}, {st}) {
+        commit('changeLoggedIn', {st})
+    },
     login({ dispatch, commit }, { username, password }) {
         commit('loginRequest', { username });
     
@@ -69,6 +53,9 @@ const actions = {
 };
 
 const mutations = {
+    changeLoggedIn(state, st){
+        state.status = { loggedIn: st }
+    },
     loginRequest(state, user) {
         state.status = { loggingIn: true };
         state.user = user;

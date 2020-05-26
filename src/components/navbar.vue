@@ -82,6 +82,7 @@
 <script>
 import { mapState } from 'vuex';
 const config = require("../config.json")
+import {router} from '../_helpers'
 export default {
     name: 'Navigation',
     data: () => {
@@ -92,9 +93,16 @@ export default {
             numbers: true,
             symbols: false,
             randPWD: '',
-            submitted: false
+            submitted: false,
+            //loggedIn: router.options.props.loggedIn
         }
     },
+    /*
+    watch: {
+        "router.options.props.loggedIn": () => {
+            this.loggedIn = !this.loggedIn
+        }
+    },*/
     computed: {
         ...mapState({
             loggedIn: state => state.account.status.loggedIn,
@@ -103,7 +111,7 @@ export default {
     methods: {
         showModal() {
             this.showModalFlag = !this.showModalFlag;
-            this.length = 8,
+            this.length = '',
             this.randPWD = ''
         },
         GetRandPwd() {

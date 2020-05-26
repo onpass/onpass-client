@@ -5,12 +5,15 @@ import HomePage from '../home/HomePage'
 import LoginPage from '../login/LoginPage'
 import RegisterPage from '../register/RegisterPage'
 import NewsPage from '../news/NewsPage'
-import axios from "axios"
-axios.defaults.withCredentials = true;
-
+import {store} from "../_store/index"
 const config = require("../config.json")
-
 Vue.use(Router);
+
+let data = {}
+
+function change_logged_in(v) {
+  Logged_in = v
+}
 
 export const router = new Router({
   mode: 'history',
@@ -20,44 +23,36 @@ export const router = new Router({
     { path: '/register', component: RegisterPage },
     { path: '/home', component: HomePage },
 
-    // otherwise redirect to home
+    // otherwise redirect to news
     { path: '*', redirect: '/' }
-  ]
+  ],
 });
 
 function getLoggedInStatus () {
-  /*
-  const requestOptions = {
-    headers: {'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Methods": 'POST', "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept' },
-    method: 'POST',
-    credentials: 'same-origin'
-  };
-  return fetch(`${config.apiUrl}/auth/check`, requestOptions).ok;
-  */
-  return axios.post(`${config.apiUrl}/auth/check`,null, {
-    headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-}
-});
+  return fetch(`${config.apiUrl}/auth/check`, {
+    method: "POST",
+    credentials: 'include',
+    headers: {'Content-Type':'application/json'}
+})
 }
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register', '/'];
   const authRequired = !publicPages.includes(to.path);
-  //const loggedIn = Vue.$cookies.isKey('nevergonnagiveyouup');
-  //const loggedIn = !!state.status.loggedIn;
-  //const loggedIn = getLoggedInStatus().then(c => console.log(c.status == 204))
-  //let loggedIn = getLoggedInStatus().then(response => console.log(response.status))
-  //console.log(loggedIn)
-  let loggedIn;
-  getLoggedInStatus().then((response) => {if(response.status === 204) {loggedIn = true}})
-  console.log("router check " + loggedIn)
+  store.state.account.status.loggedIn = true
+  getLoggedInStatus().then(
+    (response) => {
+      if(!response.ok && authRequired) {
+        //Object.assign(data, {loggedIn : false})
+        store.state.account.status.loggedIn = false
+        next("/login")
+      }
+      else {
 
-  if (authRequired && !loggedIn) {
-    return next('/login');
-  }
-
-  next();
+        store.state.account.status.loggedIn = true
+        next()
+      }
+    }
+  )
 })
