@@ -7,6 +7,9 @@ import { users } from './users.module';
 
 Vue.use(Vuex);
 
+/**
+ * Setup Vuex store
+ */
 export const store = new Vuex.Store({
     modules: {
         alert,

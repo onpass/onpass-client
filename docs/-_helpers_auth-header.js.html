@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: index.js</title>
+    <title>JSDoc: Source: _helpers/auth-header.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: index.js</h1>
+    <h1 class="page-title">Source: _helpers/auth-header.js</h1>
 
     
 
@@ -27,26 +27,18 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @namespace onpass
+ * @deprecated
  */
-import Vue from 'vue';
-import VeeValidate from 'vee-validate';
+export function authHeader() {
+    // return authorization header with jwt token
+    let user = JSON.parse(localStorage.getItem('user'));
 
-import { store } from './_store';
-import { router } from './_helpers';
-import App from './app/App';
-
-/**
- * init Vue instance
- */
-Vue.use(VeeValidate);
-/** @author Taras Ivanyshyn */
-new Vue({
-    el: '#app',
-    store,
-    router,
-    render: h => h(App),
-});</code></pre>
+    if (user &amp;&amp; user.token) {
+        return { 'Authorization': 'Bearer ' + user.token };
+    } else {
+        return {};
+    }
+}</code></pre>
         </article>
     </section>
 

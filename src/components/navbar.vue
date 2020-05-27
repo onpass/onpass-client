@@ -80,6 +80,9 @@
 </template>
 
 <script>
+/**
+ * Navigation
+ */
 import { mapState } from 'vuex';
 const config = require("../config.json")
 import {router} from '../_helpers'
@@ -97,23 +100,23 @@ export default {
             //loggedIn: router.options.props.loggedIn
         }
     },
-    /*
-    watch: {
-        "router.options.props.loggedIn": () => {
-            this.loggedIn = !this.loggedIn
-        }
-    },*/
     computed: {
         ...mapState({
             loggedIn: state => state.account.status.loggedIn,
         })
     },
     methods: {
+        /**
+         * Show/hide modal "get random pwd"
+         */
         showModal() {
             this.showModalFlag = !this.showModalFlag;
             this.length = '',
             this.randPWD = ''
         },
+        /**
+         * Submit form and set rand password from API response
+         */
         GetRandPwd() {
             this.submitted = true;
             let { length, letters, numbers, symbols } = this;

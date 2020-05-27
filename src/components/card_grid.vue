@@ -1,4 +1,8 @@
 <script>
+/**
+ * Grid each entry
+ * @param {cards}
+ */
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const config = require("../config.json")
@@ -25,12 +29,18 @@ export default {
     },
     },
     methods: {
+        /**
+     * Show/hide modal "Add card"
+     */
         showModal() {
             this.showModalFlag = !this.showModalFlag;
             this.website = ''
             this.login = ''
             this.password = ''
         },
+        /**
+         * Submit new entry
+         */
         handleSubmit(e) {
             
             this.submitted = true;

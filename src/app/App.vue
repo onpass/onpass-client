@@ -10,11 +10,14 @@
 
 <script>
 /**
-   * @version 0.1
-   */
+ * @version 0.1
+ */
 import { mapState, mapActions } from 'vuex';
 import Navigation from "../components/navbar";
 
+/**
+ * init App component
+ */
 export default {
     name: 'app',
     computed: {

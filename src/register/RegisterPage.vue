@@ -27,8 +27,10 @@
 </template>
 
 <script>
+/**
+ * RegisterPage component
+ */
 import { mapState, mapActions } from 'vuex'
-
 export default {
     data () {
         return {
@@ -45,6 +47,9 @@ export default {
     },
     methods: {
         ...mapActions('account', ['register']),
+        /**
+         * Handle registration form
+         */
         handleSubmit(e) {
             this.submitted = true;
             this.$validator.validate().then(valid => {

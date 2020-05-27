@@ -1,4 +1,8 @@
 <script>
+/**
+ * Visualize entry
+ * @param {user}
+ */
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 import {router} from "../_helpers/router"
@@ -23,20 +27,35 @@ export default {
         }
     },
     methods: {
+        /**
+         * Show/Hide password
+         */
         switchVisibility() {
             this.pwdFieldType = this.pwdFieldType === "password" ? "text" : "password"
         },
+        /**
+         * Show modal settings
+         */
         showSettings() {
             this.temp = JSON.parse(JSON.stringify(this.$props.user))
             this.showSettingsFlag = !this.showSettingsFlag
         },
+        /**
+         * Hide modal settings
+         */
         closeSettings() {
             this.showSettingsFlag = !this.showSettingsFlag
             this.$props.user = JSON.parse(JSON.stringify(this.temp))
         },
+        /**
+         * Show/Hide modal delete
+         */
         showDelete() {
             this.showDeleteFlag = !this.showDeleteFlag
         },
+        /**
+         * Delete entry
+         */
         del_card() {
             axios({
                 method:"DELETE",
@@ -49,6 +68,9 @@ export default {
             this.showDeleteFlag = !this.showDeleteFlag
             this.$forceUpdate()
         },
+        /**
+         * Handler for form which change entry
+         */
         handleSubmit(e) {
             this.submitted = true;
             this.$validator.validate().then(valid => {

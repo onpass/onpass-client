@@ -22,8 +22,10 @@
 </template>
 
 <script>
+/**
+ * LoginPage component
+ */
 import { mapState, mapActions } from 'vuex'
-
 export default {
     data () {
         return {
@@ -41,6 +43,9 @@ export default {
     },
     methods: {
         ...mapActions('account', ['login', 'logout']),
+        /**
+         * Submit login form
+         */
         handleSubmit (e) {
             this.submitted = true;
             const { username, password } = this;

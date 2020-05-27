@@ -1,11 +1,5 @@
 <template>
     <div class="align-center justify-center">
-        <!--
-        <p class="is-size-4">
-            {{"Hi, " + username}}
-        </p>
-        -->
-        
         <CardGrid
         :cards=cards_list>
         </CardGrid>
@@ -13,6 +7,9 @@
 </template>
 
 <script>
+/**
+ * HomePage component
+ */
 import CardGrid from '../components/card_grid'
 import axios from "axios"
 const config = require("../config.json")

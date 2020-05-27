@@ -9,6 +9,9 @@ import {store} from "../_store/index"
 const config = require("../config.json")
 Vue.use(Router);
 
+/**
+ * Setup router
+ */
 export const router = new Router({
   mode: 'history',
   routes: [
@@ -22,6 +25,9 @@ export const router = new Router({
   ],
 });
 
+/**
+ * API call that check HTTP-only cookie
+ */
 function getLoggedInStatus () {
   return fetch(`${config.apiUrl}/auth/check`, {
     method: "POST",
@@ -30,6 +36,9 @@ function getLoggedInStatus () {
 })
 }
 
+/**
+ * check if user logged in before every new route
+ */
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register', '/'];

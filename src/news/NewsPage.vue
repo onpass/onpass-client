@@ -18,6 +18,9 @@
 </template>
 
 <script>
+/**
+ * NewsPage component
+ */
 import { mapState } from 'vuex';
 export default {
     name:"NewsPage",
