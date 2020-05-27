@@ -6,7 +6,6 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const config = require("../config.json")
-import VueFlip from 'vue-flip';
 import AccountCard from "../components/account_card"
 export default {
     name: "CardGrid",
@@ -56,7 +55,6 @@ export default {
         }
     },
     components:{
-        'vue-flip': VueFlip,
         'acc-card': AccountCard
     }
 }
