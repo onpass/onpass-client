@@ -2,5 +2,11 @@
   "presets": [
       "env",
       "stage-0"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [["env", { "targets": { "node": "current" } }]],
+      "plugins": ["@babel/plugin-transform-modules-commonjs"]
+    }
+  }
 }
