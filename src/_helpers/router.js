@@ -47,13 +47,16 @@ router.beforeEach((to, from, next) => {
   getLoggedInStatus().then(
     (response) => {
       if(!response.ok && authRequired) {
-        //Object.assign(data, {loggedIn : false})
         store.state.account.status.loggedIn = false
         next("/login")
       }
       else {
-        console.log("loggedin")
-        store.state.account.status.loggedIn = true
+        if (!response.ok) {
+          store.state.account.status.loggedIn = false
+        }
+        else {
+          store.state.account.status.loggedIn = true
+        }
         next()
       }
     }

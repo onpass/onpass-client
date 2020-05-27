@@ -122,7 +122,7 @@ ul {
         </div>
         <p class="is-size-4">Columns:</p> <input v-model.number="numberOfColumns" class="input" size="3">
         <ul :style="gridStyle" class="card-list">
-            <li v-for="item in cards" :key=item.website class="card-item">
+            <li v-for="item in cards" :key=item.id class="card-item">
                 <acc-card
                 :user=item>
                 </acc-card>

@@ -111,7 +111,7 @@ export default {
          */
         showModal() {
             this.showModalFlag = !this.showModalFlag;
-            this.length = '',
+            this.length = 0,
             this.randPWD = ''
         },
         /**
