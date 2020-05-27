@@ -9,12 +9,6 @@ import {store} from "../_store/index"
 const config = require("../config.json")
 Vue.use(Router);
 
-let data = {}
-
-function change_logged_in(v) {
-  Logged_in = v
-}
-
 export const router = new Router({
   mode: 'history',
   routes: [
@@ -49,7 +43,7 @@ router.beforeEach((to, from, next) => {
         next("/login")
       }
       else {
-
+        console.log("loggedin")
         store.state.account.status.loggedIn = true
         next()
       }

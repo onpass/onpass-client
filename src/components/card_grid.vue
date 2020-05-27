@@ -3,16 +3,18 @@ import axios from 'axios'
 axios.defaults.withCredentials = true;
 const config = require("../config.json")
 import VueFlip from 'vue-flip';
+import AccountCard from "../components/account_card"
 export default {
     name: "CardGrid",
     props: ['cards'],
     data() {
         return {
-            numberOfColumns: 9,
+            numberOfColumns: 4,
             showModalFlag: false,
             website: '',
             login: '',
             password: '',
+            user: {website:"facebook.com", login:"Tarikan", password:"12321"}
         }
     },
     computed: {
@@ -44,7 +46,8 @@ export default {
         }
     },
     components:{
-        'vue-flip': VueFlip
+        'vue-flip': VueFlip,
+        'acc-card': AccountCard
     }
 }
 </script>
@@ -69,28 +72,11 @@ my-card-grid {
     background: #fff;
     border-radius: 4px;
     padding: 40px;
-    transition: all 0.2s;
+    transition: all 0.1s;
 }
 
 ul {
     list-style-type: none;
-}
-.front {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-.back {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-.card {
-    width: 150px;
-    height: 220px;
 }
 </style>
 
@@ -129,30 +115,9 @@ ul {
         <p class="is-size-4">Columns:</p> <input v-model.number="numberOfColumns" class="input" size="3">
         <ul :style="gridStyle" class="card-list">
             <li v-for="item in cards" :key=item.website class="card-item">
-                <vue-flip active-click transition="0.5s" width=150px height=200px>
-                    <template v-slot:front class="front">
-                        <div class="card">
-                            <div class="card-image">
-                                <div class="text-center" width="150px" height="150px">
-                                    <figure  class="image is-150x150">
-                                        <img v-bind:src="'//logo.clearbit.com/' + item.website" alt="No photo">
-                                    </figure>
-                                </div>
-                            </div>
-                            <div class="card-header">
-                                <p class="title is-6">{{item.website}}<br>{{item.login}}</p>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-slot:back class="back">
-                        <div class="card">
-                            <div class="card-content">
-                                <p>Password:</p>
-                                <p class="subtitle is-6">{{item.password}}</p>
-                            </div>
-                        </div>
-                    </template>
-                </vue-flip>
+                <acc-card
+                :user=item>
+                </acc-card>
             </li>
         </ul>
         <br>
